@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: shutdown environment
+    command: /sbin/shutdown -h now
+    become: True
+  - name: wait go down
+    local_action: wait_for host_{{ ansible_ssh_host }} port=22 state=stopped
+    become: True

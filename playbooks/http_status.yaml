@@ -1,0 +1,13 @@
+---
+- hosts: webserver
+  remote_user: msu
+  tasks:
+  - name: checking httpd status
+    service:
+      name: httpd
+      state: started
+    register: httpd_result
+    ignore_errors: True
+  - debug:
+      msg: Previous task failed
+    when: httpd_result is failed

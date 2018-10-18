@@ -1,0 +1,6 @@
+                          Hallo du schöne Welt!
+Dieses System wird durch Ansible konfiguriert. Jede manuelle Änderung kann überschrieben werden.
+OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
+Hostname: {{ inventory_hostname }}
+Alle Verbindungen werden aufgezeichnet und gemeldet.
+Sollten Sie nicht berechtigt sein, sich auf diesem System aufzuhalten und/oder Arbeiten zu verrichten, melden Sie sich umgehend ab.

@@ -1,0 +1,67 @@
+---
+- name: epel enable
+  yum:
+    name: epel-release
+    state: present
+  become: True
+- name: libselinux-python installieren
+  yum:
+    name: libselinux-python
+    state: latest
+  become: True
+- name: libsemanage-python installieren
+  yum:
+    name: libsemanage-python
+    state: latest
+  become: True
+- name: System aktualisieren
+  yum:
+    name: "*"
+    state: latest
+  become: True
+- name: ntp installieren
+  yum:
+    name: ntp
+    state: present
+  become: True
+- name: timezone auf UTC setzen
+  file:
+    src: /usr/share/zoneinfo/GMT
+    dest: /etc/localtime
+    state: link
+  become: True
+- name: ntp running & enabled
+  service:
+    name: ntpd
+    state: started
+    enabled: True
+  become: True
+- name: firewalld installieren
+  yum:
+    name: firewalld
+    state: present
+  become: True
+- name: firewalld is running
+  service:
+    name: firewalld
+    state: started
+  become: True
+- name: ssh kann firewalld passieren
+  firewalld:
+    service: ssh
+    state: enabled
+    permanent: True
+    immediate: True
+  become: True
+- name: motd vorhanden & aktuell
+  template:
+    src: /etc/ansible/roles/common/templates/motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+  become: True
+- name: hostname wie im inventory-file
+  hostname:
+    name: "{{ inventory_hostname }}"
+  become: True

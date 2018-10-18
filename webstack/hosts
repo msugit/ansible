@@ -1,0 +1,7 @@
+[all]
+webserver
+fileserver
+dbserver
+
+[webservers]
+webserver

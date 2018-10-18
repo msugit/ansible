@@ -1,0 +1,36 @@
+---
+  - name: httpd installiert?
+    yum:
+      name: httpd
+      state: present
+    become: True
+  - name: httpd enabled & running?
+    service:
+      name: httpd
+      state: started
+      enabled: True
+    become: True
+  - name: http und https can pass firewalld?
+    firewalld:
+      service: '{{ item }}'
+      state: enabled
+      permanent: True
+      immediate: True
+    become: True
+    with_items:
+    - http
+    - https
+  - name: httpd config is updated
+    copy:
+      src: /etc/ansible/roles/webserver/files/website.conf
+      dest: /etc/httpd/conf.d
+    become: True
+    notify: Restart httpd
+  - name: website is present & updated
+    template:
+      src: /etc/ansible/roles/webserver/templates/index.html.j2
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+    become: True

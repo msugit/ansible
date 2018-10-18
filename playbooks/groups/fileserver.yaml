@@ -1,0 +1,6 @@
+---
+- hosts: fileserver
+  user: msu
+  roles:
+  - common
+  - fileserver

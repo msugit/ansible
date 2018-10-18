@@ -1,0 +1,6 @@
+---
+- hosts: dbserver
+  user: msu
+  roles:
+  - common
+  - dbserver

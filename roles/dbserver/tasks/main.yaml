@@ -1,0 +1,6 @@
+---
+- name: mariadb installieren
+  yum:
+    name: mariadb
+    state: present
+  become: True

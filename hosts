@@ -1,0 +1,101 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+
+#[controller]
+#10.0.2.15
+
+#[cmk]
+#192.168.13.98
+
+[centos]
+192.168.13.45
+
+[ws]
+#10.0.2.7
+#webserver
+
+#[webserver:vars]
+#https_enabled=True
+
+[fs]
+#10.0.2.8
+#fileserver
+
+[dbs]
+#10.0.2.9
+#dbserver
+
+[dbs:vars]
+
+[frontend:children]
+ws
+
+[frontend:vars]
+https_enabled=True
+http_port=314
+max_clients=200
+
+[backend:children]
+fs
+dbs
+
+[backend:vars]
+ansible_port=20022
+
+[all:vars]
+ansible_ssh_user=msu
+ansible_port=20022
+#[FreeBSD]
+#10.0.2.6 ansible_python_interpreter="/usr/local/bin/python2.7"
+
+[DNS]
+#192.168.13.3
+#192.168.13.17
+
+[nagios]
+#192.168.13.135
+
+#[openvpn]
+#192.168.13.150
+
+## green.example.com
+## blue.example.com
+## 192.168.100.1
+## 192.168.100.10
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+
+## [webservers]
+## alpha.example.org
+## beta.example.org
+## 192.168.1.100
+## 192.168.1.110
+
+# If you have multiple hosts following a pattern you can specify
+# them like this:
+
+## www[001:006].example.com
+
+# Ex 3: A collection of database servers in the 'dbservers' group
+
+## [dbservers]
+## 
+## db01.intranet.mydomain.net
+## db02.intranet.mydomain.net
+## 10.25.1.56
+## 10.25.1.57
+
+# Here's another example of host ranges, this time there are no
+# leading 0s:
+
+## db-[99:101]-node.example.com
+

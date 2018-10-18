@@ -1,0 +1,33 @@
+---
+- name: install & start apache
+  hosts: webserver
+  remote_user: msu
+  become: True
+  
+  tasks:
+  - name: install epel-release
+    yum:
+      name: epel-release
+      state: present
+  - name: install python-bindings SELinux
+    yum:
+      name: '{{ item }}'
+      state: present
+    with_items: 
+    - libselinux-python
+    - libsemanage-python
+  - name: test if selinux läuft
+    command: getenforce
+    register: sestatus
+    changed_when: false
+
+  - name: install apache
+    yum:
+      name: httpd
+      state: present
+  - name: start & enable apache
+    service:
+      name: httpd
+      state: started
+      enabled: True
+

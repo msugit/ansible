@@ -1,0 +1,21 @@
+---
+- hosts: all
+  tasks:
+
+- name: apply common config
+  hosts: all
+  remote_user: msu
+  become: True
+  tasks:
+
+  roles:
+  - common
+
+- name: install & configure apache
+  hosts: webserver
+  remote_user: msu
+  become: True
+  tasks:
+
+  roles:
+  - web
