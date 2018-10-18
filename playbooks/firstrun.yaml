@@ -2,17 +2,17 @@
 - hosts: all
   user: root
   tasks:
-  - name: msu anlegen
+  - name: user msu anlegen
     user:
       name: msu
       state: present
       comment: msu
-  - name: Set authorized key for user msu copying it from current user
+  - name: Set auth key for user msu copying it from current user
     authorized_key:
       user: msu
       state: present
       key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-  - name: msu ist sudoer
+  - name: msu wird sudoer
     lineinfile:
       dest: /etc/sudoers
       state: present
