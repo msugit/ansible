@@ -5,6 +5,6 @@
   - name: set variable name
     set_fact:
       name: Test machine
-  - name: Print variable 'name'
+  - name: Print variable 'nomen'
     debug:
-      msg: '{{ name }}'
+      msg: '{{ nomen }}'
