@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: msu
+  tasks:
+  - name: print os info
+    debug:
+      msg: '{{ ansible_distribution }} {{ ansible_distribution_version }}'
+  - name: print other info
+    debug:
+      msg: '{{ ansible_processor_cores }} {{ ansible_processor_cores }}'

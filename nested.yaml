@@ -1,0 +1,26 @@
+---
+- hosts: all
+  remote_user: msu
+  vars:
+    users:
+    - ich
+    - du
+    folders:
+    - 1
+    - 2
+    - 3
+  tasks:
+  - name: user anlegen
+    user:
+      name: '{{ item }}'
+    become: True
+    with_items:
+    - '{{ users }}'
+  - name: folder anlegen
+    file:
+      path: '/home/{{ item.0 }}/{{ item.1 }}'
+      state: directory
+    become: True
+    with_nested:
+    - '{{ users }}'
+    - '{{ folders }}'

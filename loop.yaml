@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: msu
+  tasks:
+  - name: erstelle folder /tmp/dirXY with XY von 1 bis 100
+    file:
+      dest: '/tmp/dir{{ item }}'
+      state: directory
+    with_sequence: start=1 end=100
+    become: True

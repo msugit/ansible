@@ -1,0 +1,17 @@
+---
+- hosts: webserver
+  remote_user: msu
+  tasks:
+  - name: httpd löschen
+    yum:
+      name: httpd
+      state: absent
+    become: True
+    when: ansible_os_family == 'RedHat'
+  - name: apache löschen
+    apt:
+      name: apache2
+      state: absent
+    become: True
+    when: ansible_os_family == 'Debian'
+

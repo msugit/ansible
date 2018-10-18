@@ -1,0 +1,4 @@
+---
+- import_playbook: playbooks/groups/dbserver.yaml
+- import_playbook: playbooks/groups/webserver.yaml
+- import_playbook: playbooks/groups/fileserver.yaml

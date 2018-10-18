@@ -1,0 +1,12 @@
+---
+- hosts: all
+  remote_user: msu
+  vars:
+    backup: True
+  tasks:
+  - name: copy crontab
+    copy:
+      src: /etc/crontab
+      dest: /tmp/crontab
+      remote_src: True
+    when: backup

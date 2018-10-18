@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: msu
+  gather_facts: false
+  tasks:
+  - name: ensure /tmp/iproute2 exists
+    file:
+      dest: '/tmp/iproute2'
+      state: directory
+    become: True
+  - name: copy files that start with rt to /tmp folder
+    copy:
+      src: '{{ item }}'
+      dest: '/tmp/iproute2'
+      remote_src: True
+    become: True
+    with_fileglob:
+    - '/etc/iproute2/rt_*'

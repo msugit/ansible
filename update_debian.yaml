@@ -1,0 +1,14 @@
+---
+- hosts: openvpn
+  tasks:
+  - name: update server
+    apt: update_cache=yes
+  - name: upgrade server
+    apt: upgrade=dist
+  - name: check if reboot is required
+    register: file
+    stat: path=/var/run/reboot-required get_md5=no
+  - name: Reboot the server
+    command: /sbin/reboot
+    when: file.stat.exists == true
+  become: true

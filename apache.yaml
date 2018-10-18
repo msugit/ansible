@@ -1,0 +1,21 @@
+---
+- hosts: webserver
+  remote_user: msu
+  tasks:
+  - name: EPEL installieren
+    yum:
+      name: epel-release
+      state: present
+    become: True
+  - name: install httpd
+    yum:
+      name: httpd
+      state: present
+    become: True
+  - name: httpd starten und enablen
+    service:
+      name: httpd
+      state: started
+      enabled: True
+    become: True
+     

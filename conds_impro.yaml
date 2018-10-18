@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: msu
+  vars:
+    backup: True
+  tasks:
+  - name: check if var ist set
+    fail:
+      msg: 'The backup_folder needs to be set'
+    when: backup_folder is not defined
+  - name: copy crontab if backup var is true
+    copy:
+      src: /etc/crontab
+      dest: '{{ backup_folder }}/crontab'
+      remote_src: True
+    when: backup

@@ -1,0 +1,19 @@
+---
+- hosts: webserver
+  remote_user: msu
+  tasks:
+  - name: print ansible_os_family value
+    debug:
+      msg: '{{ ansible_os_family }}'
+  - name: httpd update
+    yum:
+     name: httpd
+     state: latest
+    become: True
+    when: ansible_os_family == 'RedHat'
+  - name: apache update
+    apt:
+      name: apache2
+      state: latest
+    become: True
+    when: ansible_os_family == 'Debian'

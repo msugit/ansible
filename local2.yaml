@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: msu
+  tasks:
+  - name: ps on the remote sys
+    shell: ps | wc -l
+    register: remote_ps_nr
+  - name: print remote ps
+    debug:
+      msg: '{{ remote_ps_nr.stdout }}'
+  - name: ps on the local sys
+    local_action: shell ps | wc -l
+    register: local_ps_nr
+  - name: print local ps
+    debug:
+      msg: '{{ local_ps_nr.stdout }}'

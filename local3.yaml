@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: zähle remote procs
+    shell: ps | wc -l
+    register: remote_ps
+  - name: print remote_ps
+    debug:
+      msg: '{{ remote_ps.stdout }}'
+  - name: zähle lokale procs
+    local_action: shell ps | wc -l
+    register: local_ps
+  - name: print lokale procs
+    debug:
+      msg: '{{ local_ps.stdout }}'
